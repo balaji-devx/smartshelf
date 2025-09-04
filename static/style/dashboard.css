@@ -1,0 +1,278 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #6a0572; /* Custom background color */
+    color: #ddd; /* Custom text color */
+}
+
+/* Header Styles */
+header {
+    background-color: #1d1f21;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+header p {
+    font-size: 18px;
+}
+
+/* Card Hover Effects */
+.card {
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-block .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+
+.card-block .rotate i {
+    color: rgba(20, 20, 20, 0.15);
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: -10px;
+    bottom: 0;
+    display: block;
+    transform: rotate(-44deg);
+}
+
+.card-block .rotate i:hover {
+    color: #6a0572; /* Hover color */
+}
+
+/* Sidebar Menu Hover Effects */
+.sidebar-offcanvas a:hover {
+    background-color: #6a0572;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Login Section */
+#login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+#login-box {
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 20px;
+}
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: white; /* Set input text color to white */
+    background-color: #444; /* Darker background for contrast */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #6a0572;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #6a0572; /* Hover color */
+    transition: background-color 0.3s ease;
+}
+
+/* Home Page */
+#home-container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#home-container h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: white; /* Ensure text is white */
+}
+
+#home-container p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: white; /* Ensure text is white */
+}
+
+#home-container .get-started-btn {
+    padding: 15px 30px;
+    background-color: #6a0572;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#home-container .get-started-btn:hover {
+    background-color: #6a0572; /* Hover color */
+}
+
+/* About Page */
+#about-container {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #fff;
+    color: #333;
+}
+
+#about-container h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #6a0572; /* Adjusted for visibility */
+}
+
+#about-container p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Contact Section */
+#down {
+    text-align: center;
+    padding: 40px 20px;
+    background: #1d1f21;
+    color: #ccc;
+    margin-top: 40px;
+}
+
+#down h3 {
+    font-size: 22px;
+    color: #6a0572;
+    margin-bottom: 10px;
+}
+
+#down h2 {
+    font-size: 28px;
+    color: #6a0572;
+    margin-bottom: 20px;
+}
+
+#down p {
+    font-size: 16px;
+    color: #fff;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+#down .social-icons {
+    margin-top: 30px;
+}
+
+#down .social-icons i {
+    font-size: 30px;
+    color: #fff;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#down .social-icons i:hover {
+    color: #6a0572; /* Hover color */
+    transform: scale(1.1); /* Animation for hover */
+}
+
+/* Footer */
+footer {
+    background-color: #1d1f21;
+    color: #ccc;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Table Text Color */
+.table th, .table td {
+    color: white; /* Ensure text in the table is white */
+}
+
+/* Modal Text Color */
+.modal-header, .modal-body, .modal-footer {
+    color: white; /* Set modal text to white */
+}
+
+/* Buttons Text Color */
+.btn {
+    color: white; /* Set button text to white */
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    /* Adjust for smaller screens (mobile) */
+    header h1 {
+        font-size: 28px;
+    }
+
+    header p {
+        font-size: 16px;
+    }
+
+    #home-container h1 {
+        font-size: 36px;
+    }
+
+    #home-container p {
+        font-size: 16px;
+    }
+
+    #about-container h2 {
+        font-size: 28px;
+    }
+
+    #about-container p {
+        font-size: 16px;
+    }
+
+    #down {
+        padding: 20px;
+    }
+
+    #down h3 {
+        font-size: 18px;
+    }
+
+    #down h2 {
+        font-size: 24px;
+    }
+
+    #down p {
+        font-size: 14px;
+        margin: 8px 0;
+    }
+
+    #down .social-icons i {
+        font-size: 25px;
+        margin: 0 10px;
+    }
+}

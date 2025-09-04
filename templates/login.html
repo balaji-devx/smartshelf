@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SMARTSHELF</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style/dashboard.css') }}">
+
+    <style>
+        /* Header - Menu */
+        #menu {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: #2c2f33;
+        }
+
+        #logo {
+            font-size: 24px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        #menu1 ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        #menu1 ul a {
+            text-decoration: none;
+            color: #fff;
+            padding: 5px 10px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        #menu1 ul a:hover {
+            background: #8a2be2;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        /* Background & Layout */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1d1f21, #6a0572);
+            color: #fff;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* Form Container - Centered Box */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ensure it's vertically centered */
+            padding: 0 10px;
+        }
+
+        .login-card {
+            background: #2c2f33;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px; /* Set a max width to keep it boxed */
+            text-align: left;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        .login-card h2 {
+            color: #8a2be2;
+            margin-bottom: 20px;
+            text-align: center; /* Center the title */
+        }
+
+        .login-card input[type="email"],
+        .login-card input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #3a3d41;
+            color: #fff;
+        }
+
+        .login-card input[type="submit"] {
+            background: #8a2be2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-card input[type="submit"]:hover {
+            background: #5a0080;
+        }
+
+        .login-card .forgot-password {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .login-card .forgot-password a {
+            text-decoration: none;
+            color: #8a2be2;
+            font-size: 14px;
+        }
+
+        .login-card .forgot-password a:hover {
+            color: #fff;
+        }
+
+        .bottom {
+            margin-top: 20px;
+            color: #ccc;
+            text-align: center;
+        }
+
+        .bottom a {
+            color: #8a2be2;
+            text-decoration: none;
+        }
+
+        .bottom a:hover {
+            color: #fff;
+        }
+
+        /* Footer */
+.footer {
+    background-color: #1a1c20;  /* Darker color than the background */
+    color: #ccc;  /* Lighter text color for contrast */
+    text-align: center;  /* Center the text */
+    padding: 20px;  /* Padding for spacing */  /* Fix it at the bottom of the page */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;  /* Smaller font size */
+    border-top: 1px solid #444;  /* Optional border for better separation */
+}
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div id="menu">
+    <a class="nav-link" href="/">
+        <div id="logo">SMARTSHELF</div>
+    </a>
+    <div id="menu1">
+        <ul>
+            {% if session['userid'] %}
+                <li><a href="#">{{ session.name }}</a> |</li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+<div class="login-container">
+    <div class="login-card">
+        <h2>User Login</h2>
+        <form action="{{ url_for('login') }}" method="post">
+            {% if msg is defined and msg %}
+                <div class="alert alert-warning">{{ msg }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+            </div>
+            <div class="forgot-password">
+                <a href="{{ url_for('forgot_password') }}">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <p class="bottom">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">&copy; 2025 SMARTSHELF, All rights reserved.</div>
+</body>
+</html>

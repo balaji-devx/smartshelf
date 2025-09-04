@@ -1,0 +1,208 @@
+{% include 'header.html' %}
+<body>
+  <div class="container-fluid" id="main">
+  {% include 'top_menus.html' %}  	
+    <div class="row row-offcanvas row-offcanvas-left">
+      {% include 'left_menus.html' %}
+      <div class="col-md-9 col-lg-10 main"> 
+        <h2 class="futuristic-heading">Dashboard</h2>
+        <div class="row mb-3 justify-content-center align-items-center">
+          <div class="col-xl-3 col-lg-6 col-md-6">
+              <div class="card futuristic-card">
+                  <div class="card-block">
+                      <div class="rotate">
+                          <i class="fa fa-user fa-5x futuristic-icon"></i>
+                      </div>
+                      <h6 class="text-uppercase futuristic-text">Total Books</h6>
+                      <h1 class="display-1"><span class="total-books">0</span></h1>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="col-xl-3 col-lg-6 col-md-6">
+              <div class="card futuristic-card">
+                  <div class="card-block">
+                      <div class="rotate">
+                          <i class="fa fa-twitter fa-5x futuristic-icon"></i>
+                      </div>
+                      <h6 class="text-uppercase futuristic-text">Available Books</h6>
+                      <h1 class="display-1"><span class="available-books">0</span></h1>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="col-xl-3 col-lg-6 col-md-6">
+              <div class="card futuristic-card">
+                  <div class="card-block">
+                      <div class="rotate">
+                          <i class="fa fa-share fa-5x futuristic-icon"></i>
+                      </div>
+                      <h6 class="text-uppercase futuristic-text">Returned Books</h6>
+                      <h1 class="display-1"><span class="returned-books">0</span></h1>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="col-xl-3 col-lg-6 col-md-6">
+              <div class="card futuristic-card">
+                  <div class="card-block">
+                      <div class="rotate">
+                          <i class="fa fa-list fa-4x futuristic-icon"></i>
+                      </div>
+                      <h6 class="text-uppercase futuristic-text">Issued Books</h6>
+                      <h1 class="display-1"><span class="issued-books">0</span></h1>
+                  </div>
+              </div>
+          </div>
+      </div>
+        <hr>         
+       </div>       
+      </div>     
+    </div>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+  </body>
+</html>
+
+<style>
+  /* Clean, futuristic card design */
+  .card {
+    background: transparent;
+    border: 2px solid #2c2c2c;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 20px;
+  }
+
+  .card-block {
+    text-align: center;
+  }
+
+  .rotate {
+    transition: transform 0.5s;
+  }
+
+  .rotate:hover {
+    transform: rotate(360deg);
+  }
+
+  .futuristic-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #444;
+    backdrop-filter: blur(10px);
+    color: #fff;
+  }
+
+  .futuristic-icon {
+    color: #00ffff;
+    transition: color 0.3s, transform 0.3s;
+  }
+
+  .futuristic-text {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #f0f0f0;
+    margin-top: 10px;
+    font-size: 1.2em;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+  }
+
+
+  .card:hover .futuristic-icon {
+    color: #ff69b4; /* Color change on hover */
+    transform: scale(1.1);
+  }
+
+  .card:hover .futuristic-text {
+    color: #ff69b4;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 80vh;  /* Center vertically within the screen */
+  }
+
+  .col-xl-3, .col-lg-6, .col-md-6 {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .display-1 {
+    font-size: 40px;
+    color: #00ffff;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: transform 0.3s;
+  }
+
+  .display-1:hover {
+    transform: scale(1.1);
+  }
+
+  hr {
+    border-color: #00ffff;
+    width: 60%;
+    margin-top: 30px;
+  }
+
+  /* Simple Futuristic Dashboard Heading */
+  .futuristic-heading {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #00ffff;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    transition: color 0.3s;
+  }
+
+  .futuristic-heading:hover {
+    color: #ff69b4;
+  }
+  @keyframes numberUpdate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); color: #ff69b4; }
+    100% { transform: scale(1); }
+}
+
+.number-updated {
+    animation: numberUpdate 1s ease;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.error-message {
+    color: #ff4444;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
+
+/* Optional loading state */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading .futuristic-icon {
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+</style>

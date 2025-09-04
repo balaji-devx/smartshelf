@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIBRARY | SMARTSHELF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1d1f21, #6a0572);
+            color: #fff;
+            animation: fadeIn 2s ease-in;
+        }
+
+        #menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        #menu .title a {
+    font-size: 24px;
+    color: #fff;  /* White color */
+    font-weight: bold;
+    text-decoration: none;  /* Removes underline */
+}
+
+
+        #menu .menu-items {
+            display: flex;
+            gap: 20px;
+        }
+
+        #menu .menu-items a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 5px 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        #menu .menu-items a:hover {
+            background: #8a2be2;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px;
+        }
+
+        form input {
+            width: 60%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #5a0080;
+        }
+
+        #search-results {
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.search-book-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.search-book-card {
+    background: #8a2be2;
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-book-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.search-book-card button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1120eb;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-book-card button:hover {
+    background-color: #5a0080;
+}
+
+.search-book-cover {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+     /* Styling for the chatbot button */
+#libot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #8a2be2;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#libot-btn:hover {
+    background-color: #5a0080;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Chat window container */
+#chat-box {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 320px;
+    height: 480px;
+    background-color: #333;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    opacity: 0;
+    visibility: hidden; /* Initially hidden */
+    transform: translateY(100px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s 0.3s; /* Delay visibility change */
+}
+
+#chat-box.visible {
+    opacity: 1;
+    visibility: visible; /* Ensure visibility when the chatbox is shown */
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Reset transition for visible state */
+}
+
+/* Chat window header */
+.chat-header {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+/* Chat window body */
+#chat-window {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+/* Styling for message bubbles */
+.bubble {
+    max-width: 75%;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 5px 10px;
+    text-align: center;
+}
+
+.user-message {
+    background-color: #28a745;
+    color: white;
+    align-self: flex-end;
+    border-radius: 12px 12px 0 12px;
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* Styling for message bubbles */
+.bubble {
+    max-width: 75%;
+    padding: 10px 15px;  /* Reduced vertical padding for skinny text (top/bottom 10px, left/right 15px) */
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 5px 10px;
+    text-align: center;
+}
+
+.user-message {
+    background-color: #28a745;
+    color: white;
+    align-self: flex-end;
+    border-radius: 12px 12px 0 12px;
+    padding: 12px 15px; /* Increased vertical padding (top/bottom 12px) */
+    animation: slideInRight 0.3s ease-out;
+}
+
+.bot-message {
+    background-color: #6c757d;
+    color: white;
+    align-self: flex-start;
+    border-radius: 12px 12px 12px 0;
+    padding: 12px 15px; /* Increased vertical padding (top/bottom 12px) */
+    animation: slideInLeft 0.3s ease-out;
+}
+
+
+/* Input container */
+#chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 0 0 15px 15px;
+    gap: 10px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #555;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+#chat-input button {
+    background-color: #8a2be2;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+#chat-input button:hover {
+    background-color: #5a0080;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #chat-box {
+        width: 90%;
+        height: 60%;
+        right: 5%;
+    }
+
+    #libot-btn {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        font-size: 18px;
+    }
+}
+
+/* Animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}   
+/* Book Details Container */
+#book-details-container {
+    display: flex;
+    flex-wrap: wrap;  /* Allow wrapping to the next row if necessary */
+    justify-content: space-evenly;  /* Evenly space out the cards */
+    align-items: flex-start;  /* Align items at the top to ensure consistency */
+    gap: 20px;  /* Space between cards */
+    padding: 0 2cm;  /* Reduce padding for better spacing */
+    margin-top: 20px;
+}
+
+/* Book Card */
+.book-card {
+    background: #8a2be2;  /* Dark background */
+    color: white;  /* White text color */
+    border-radius: 10px;  /* Rounded corners */
+    padding: 15px;  /* Inner padding */
+    width: 200px;  /* Fixed width for each card */
+    height: 300px;  /* Fixed height for consistency */
+    text-align: center;  /* Center text inside cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Shadow effect */
+    margin: 10px;  /* Space around each card */
+    flex: 0 0 auto;  /* Prevent flex items from growing or shrinking */
+    transition: box-shadow 0.3s ease;  /* Smooth shadow transition */
+}
+
+/* Remove Card Growth on Hover */
+.book-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);  /* Slight shadow enhancement */
+      /* No size change on hover */
+}
+
+/* Book Cover Image */
+.book-cover {
+    max-width: 100%;  /* Responsive image */
+    height: auto;  /* Maintain aspect ratio */
+    border-radius: 8px;  /* Rounded corners for the image */
+    margin-bottom: 3px;
+}
+
+/* Book Info */
+.book-info {
+    margin-top: 3px;  /* Space above the book info */
+}
+
+/* Book Name */
+.book-name {
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Book Author and ISBN */
+.book-author, .book-isbn {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+/* Button inside the card */
+.book-card button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5a0080;  /* Slightly darker purple */
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Button hover effect */
+.book-card button:hover {
+    background-color: #360050;  /* Even darker purple on hover */
+}
+
+   </style>
+</head>
+<body>
+    <!-- Menu -->
+    <div id="menu">
+        <div class="title">
+        <a href ="/">SMARTSHELF</a></div>
+        <div class="menu-items">
+            <a href="/view_user">Profile</a>
+            <a href="/reviews">Reviews</a>
+            <a href="/query">Forum</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+<br>
+    <!-- Search Bar -->
+    <form id="search-form" method="POST" action="/search">
+        <input type="text" name="query" placeholder="Search for books..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="search-results">
+        <div class="search-book-container" id="search-book-container">
+            <!-- Book cards will be appended dynamically -->
+        </div>
+    </div>
+<br>
+<!-- Book Details Container -->
+<div id="book-details-container" class="book-details">
+    <!-- Book Card 1 -->
+    <div class="book-card">
+        <img src="/static/images/book.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-info">
+            <h3 class="book-name">Harry Potter</h3>
+            <p class="book-author">Author: J.K ROWLING</p>
+            <p class="book-isbn">ISBN: ISBO337N</p>
+        </div>
+    </div>
+    
+    <!-- Book Card 2 -->
+    <div class="book-card">
+        <img src="/static/images/book.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-info">
+            <h3 class="book-name">ULYSSES</h3>
+            <p class="book-author">Author: ALRED TENNYSON</p>
+            <p class="book-isbn">ISBN: 987654321</p>
+        </div>
+    </div>
+    
+    <!-- Book Card 3 -->
+    <div class="book-card">
+        <img src="/static/images/book.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-info">
+            <h3 class="book-name">THIRUKKURAL</h3>
+            <p class="book-author">Author: THIRUVALLUVAR </p>
+            <p class="book-isbn">ISBN: 456789123</p>
+        </div>
+    </div>
+</div>
+<!-- Book Details Container -->
+<div id="book-details-container" class="book-details">
+    <!-- Book Card 1 -->
+    <div class="book-card">
+        <img src="/static/images/book.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-info">
+            <h3 class="book-name">THE GREAT GATSBY</h3>
+            <p class="book-author">Author: F. SCOTT FITZGERALD</p>
+            <p class="book-isbn">ISBN: 123456789</p>
+        </div>
+    </div>
+    
+    <!-- Book Card 2 -->
+    <div class="book-card">
+        <img src="/static/images/book.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-info">
+            <h3 class="book-name">PYTHON</h3>
+            <p class="book-author">Author: NASIRA MAM</p>
+            <p class="book-isbn">ISBN: 987654321</p>
+        </div>
+    </div>
+    
+    <!-- Book Card 3 -->
+    <div class="book-card">
+        <img src="/static/images/book.jpg" alt="Book Cover" class="book-cover">
+        <div class="book-info">
+            <h3 class="book-name">VB</h3>
+            <p class="book-author">Author: SUDHA MAM</p>
+            <p class="book-isbn">ISBN: 456789123</p>
+        </div>
+    </div>
+</div>
+
+  <!-- Shelfie Chatbot Button -->
+<div id="libot-btn" onclick="toggleChatBox()">💬</div>
+
+<!-- Chat Window -->
+<div id="chat-box" class="hidden">
+    <div class="chat-header" onclick="toggleChatBox()">Chat with Shelfie!</div>
+    <div id="chat-window">
+        <!-- Messages will appear here -->
+    </div>
+    <div id="chat-input">
+        <input type="text" id="user-input" placeholder="Type a message..." />
+        <button id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+
+<!-- Message Input Window -->
+<div id="message-input-container" style="display:none;">
+    <textarea id="message-input" placeholder="Type your message here..." rows="6" cols="30"></textarea>
+    <button id="send-btn" onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+   const form = document.getElementById("search-form");
+form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    const query = e.target.query.value; // Get the query from the input field
+    const container = document.getElementById("search-book-container"); // Target the correct container
+    container.innerHTML = ""; // Clear previous results
+
+    try {
+        // Fetch search results from the backend
+        const response = await fetch("/search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query })
+        });
+
+        if (response.ok) {
+            const results = await response.json();
+            console.log(results); // Log to check the response
+
+            if (Array.isArray(results) && results.length > 0) {
+                results.forEach(book => {
+                    console.log("Creating card for:", book.name); // Check if loop runs
+
+                    const card = document.createElement("div");
+                    card.classList.add("search-book-card");
+
+                    // Create the card content dynamically
+                    card.innerHTML = `
+                        <img src="/static/images/${book.picture || 'book.jpg'}" alt="${book.name}" class="search-book-cover">
+                        <h3>${book.name}</h3>
+                        <p><strong>Author:</strong> ${book['author.name'] || "Unknown Author"}</p>
+                        <p><strong>Publisher:</strong> ${book['publisher.name'] || "Unknown Publisher"}</p>
+                        <p><strong>ISBN:</strong> ${book.isbn}</p>
+                        <p><strong>Status:</strong> ${book.status === "Enable" ? "Available" : "Unavailable"}</p>
+                        <button onclick="downloadPDF('${book.isbn}')">Download PDF</button>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } else {
+                container.innerHTML = "<p>No books found for your query!</p>";
+            }
+        } else {
+            console.error("Failed to fetch results.");
+            container.innerHTML = "<p>Something went wrong. Please try again later.</p>";
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        container.innerHTML = "<p>An error occurred. Please try again later.</p>";
+    }
+});
+
+
+function downloadPDF(isbn) {
+    // Redirect to the download endpoint for the specified ISBN
+    window.location.href = `/download_pdf/${isbn}`;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const chatBox = document.getElementById("chat-box");
+    const chatButton = document.getElementById("libot-btn");
+    const chatHeader = document.querySelector(".chat-header");
+
+    // Function to toggle the chatbox visibility
+    function toggleChatBox(event) {
+        event.stopPropagation(); // Prevent the click from propagating
+        // Toggle chatbox visibility using a class
+        chatBox.classList.toggle("visible");
+    }
+
+    // Function to close the chatbox if clicked outside
+    function closeChatBox(event) {
+        if (!chatBox.contains(event.target) && event.target !== chatButton) {
+            chatBox.classList.remove("visible"); // Hide the chatbox
+        }
+    }
+
+    // Event listener for the chat button
+    chatButton.addEventListener("click", function (event) {
+        toggleChatBox(event);
+        // Add a one-time event listener to close the chatbox if clicked outside
+        document.addEventListener("click", closeChatBox, { once: true });
+    });
+
+    // Optional: Close the chatbox when the header is clicked
+    if (chatHeader) {
+        chatHeader.addEventListener("click", function (event) {
+            toggleChatBox(event);
+        });
+    }
+});
+
+
+
+// Function to add messages to the chat window
+function addMessage(message, sender) {
+    const chatWindow = document.getElementById("chat-window");
+    const messageElement = document.createElement("div");
+    messageElement.classList.add(sender);
+    
+    // Check if the message contains HTML (like a download link)
+    if (message.includes('<a href')) {
+        messageElement.innerHTML = message;  // Inject HTML directly
+    } else {
+        messageElement.textContent = message;  // Plain text response
+    }
+
+    chatWindow.appendChild(messageElement);
+    chatWindow.scrollTop = chatWindow.scrollHeight;  // Scroll to the bottom of chat
+}
+// Function to initialize the chat with introductory messages
+function initChat() {
+    // Send a greeting message when the chatbox is opened
+    addMessage("Hello, my name is Shelfie. I'm your personal library assistant. I will help with your queries!", "bot-message");
+    
+    // Send instruction messages
+    addMessage("If you want to search for available books, just type 'available books'.", "bot-message");
+    addMessage("If you're looking for a specific book, type 'find book [book_name]'.", "bot-message");
+}
+
+// Event listener to trigger the chat initialization when the page loads
+window.onload = initChat;
+
+// Function to send the user's message and get the bot response
+async function sendMessage() {
+    const userMessage = document.getElementById("user-input").value;
+    if (userMessage.trim()) {
+        // Add user message to the chat window
+        addMessage(userMessage, "user-message");
+        document.getElementById("user-input").value = "";  // Clear the input field
+
+        // Send the user message to the Flask backend
+        try {
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userMessage })
+            });
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            // Parse the response from the backend
+            const data = await response.json();
+
+            // If there's a response, add it to the chat window
+            const botMessage = data.response || "Sorry, I didn't understand that.";
+            addMessage(botMessage, "bot-message");  // Add bot response to the chat window
+
+        } catch (error) {
+            console.error("Error sending message:", error);
+            addMessage("Oops! Something went wrong. Please try again.", "bot-message");
+        }
+    }
+}
+
+// Event listener for the send button
+document.getElementById("send-btn").addEventListener("click", sendMessage);
+
+// Event listener for the "Enter" key to send messages
+document.getElementById("user-input").addEventListener("keypress", function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+
+</script>
+
+
+</body>
+</html>

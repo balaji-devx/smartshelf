@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>SMARTSHELF</h1>
+        <nav>
+            <a href="/register" class="active">Register</a>
+            <a href="/login">Login</a>
+            <a href="/library">Library</a>
+        </nav>
+    </header>
+
+    <section class="home">
+        <img src="{{ url_for('static', filename='assets/mount2.png') }}" class="mount2">
+        <img src="{{ url_for('static', filename='assets/mount1.png') }}" class="mount1">
+        <img src="{{ url_for('static', filename='assets/bush2.png') }}" class="bush2">
+
+        <h1 class="title">SmartShelf</h1> 
+
+        <img src="{{ url_for('static', filename='assets/bush1.png') }}" class="bush1">
+        <img src="{{ url_for('static', filename='assets/leaf2.png') }}" class="leaf2">
+        <img src="{{ url_for('static', filename='assets/leaf1.png') }}" class="leaf1">
+    </section>
+
+    <section class="about">
+        <h1>About SmartShelf</h1>
+        <br>
+        <p><h4> Welcome to SmartShelf, your all-in-one digital library! Here, technology meets convenience to revolutionize the way you read and manage books. Discover a vast collection of eBooks across genres, tailored to suit your preferences and needs. Organize your personal library with ease, keeping all your favorite titles just a click away. Access your digital collection anytime, anywhere, from the comfort of your home or on the go. With smart features like advanced search, AI-powered recommendations, and a sleek design, SmartShelf redefines the joy of reading. Our intuitive interface ensures effortless navigation, making even first-time users feel at home. Say goodbye to the hassle of physical book storage and embrace the future of e-reading. Whether you're a casual reader or a passionate bibliophile, SmartShelf is built to elevate your experience. Let SmartShelf be your gateway to an immersive, seamless, and enjoyable reading journey.</h4></p>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

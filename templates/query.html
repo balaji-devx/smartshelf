@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - Book & Website Queries</title>
+    <style>
+        /* Reset default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Body styles */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #1d1f21, #6a0572); /* Gradient background */
+      color: #fff;
+      animation: fadeIn 2s ease-in;
+    }
+    
+    /* Container for the page */
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Header for the forum */
+    .forum-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .forum-header h1 {
+      font-size: 36px;
+      color: #8a2be2; /* Main brand color */
+    }
+    
+    .forum-header p {
+      font-size: 18px;
+      color: #ddd; /* Lighter text for contrast */
+    }
+    
+    /* Form container styles */
+    .forum-form {
+      margin-bottom: 30px;
+    }
+    
+    .forum-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .forum-form label {
+      font-size: 16px;
+      color: #fff; /* White text for labels */
+    }
+    
+    .forum-form input, .forum-form select, .forum-form textarea {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      background-color: #333; /* Dark background for form elements */
+      color: #fff; /* White text inside input fields */
+    }
+    
+    .forum-form input:hover, .forum-form select:hover, .forum-form textarea:hover {
+      border-color: #8a2be2; /* Hover effect with brand color */
+    }
+    
+    .forum-form button {
+      background-color: #8a2be2; /* Main brand color */
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .forum-form button:hover {
+      background-color: #7a1ab1; /* Darker shade of main color */
+    }
+    
+    /* Recent queries section */
+    .forum-queries {
+      margin-top: 30px;
+    }
+    
+    .query-item {
+      background-color: #8a2be2;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+    
+    .query-item h3 {
+      color: #f4f4f4; /* Main brand color */
+      font-size: 20px;
+    }
+    
+    .query-item p {
+      color: #fff; /* White text */
+      font-size: 16px;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="main">
+        {% include 'top_menus.html' %}
+    </div>
+    <div class="container">
+        <div class="forum-header">
+            <h1>Welcome to the Forum</h1>
+            <p>Request a book or ask any website-related queries!</p>
+        </div>
+
+        <div class="forum-form">
+            <form action="{{ url_for('query') }}" method="POST">
+                <!-- CSRF Token for Flask-WTF -->
+                {% if csrf_token %}
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                {% endif %}
+                
+                <label for="book_request">Book Title (if requesting a book):</label>
+                <input type="text" id="book_request" name="book_request" placeholder="Enter book title" >
+
+                <label for="description">Query Description:</label>
+                <textarea id="description" name="description" placeholder="Describe your query" required></textarea>
+
+                <button type="submit">Submit Query</button>
+            </form>
+        </div>
+
+        <div class="forum-queries">
+            <h2>Recent Queries</h2>
+            <br>
+            {% if queries %}
+                {% for query in queries %}
+                    <div class="query-item">
+                        <h3> Requested:{{ query.book_request }}</h3> <!-- Updated to display book_request --><br>
+                        <p> Description:{{ query.description }}</p> <!-- Updated to display description -->
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No queries submitted yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

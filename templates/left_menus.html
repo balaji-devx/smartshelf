@@ -1,0 +1,200 @@
+<style>
+  /* Menu Container */
+  .sidebar {
+      background-color: #121212;
+      min-height: 100vh;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+  }
+  
+  /* Menu Items */
+  .nav-item {
+      position: relative;
+      margin: 0.5rem 0;
+  }
+  
+  /* Main Menu Links */
+  .nav-link {
+      padding: 0.8rem 1.5rem;
+      color: #fff !important;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+  }
+  
+  /* Hover Effect for Main Links */
+  .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(10px);
+  }
+  
+  /* Active Link Style */
+  .nav-link.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid #00ffff;
+  }
+  
+  /* Section Headers */
+  .nav-header {
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none; /* Removes underline */
+    display: block; /* Makes the link behave like a block for consistency */
+}
+
+  /* Submenu Container */
+  .submenu {
+      margin-left: 1rem;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+  }
+  
+  /* Submenu Items */
+  .submenu .nav-link {
+      padding-left: 2.5rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+  }
+  
+  /* Hover Effect for Submenu Items */
+  .submenu .nav-link:hover {
+      opacity: 1;
+  }
+  
+  /* Icon styles */
+  .nav-icon {
+      margin-right: 0.75rem;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+  }
+  
+  /* Hover effect for icons */
+  .nav-link:hover .nav-icon {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  
+  /* Ripple effect on click */
+  .nav-link::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+  }
+  
+  .nav-link:active::after {
+      animation: ripple 0.6s ease-out;
+  }
+  
+  /* Submenu Expand/Collapse Animation */
+  @keyframes slideDown {
+      from { max-height: 0; }
+      to { max-height: 200px; }
+  }
+  
+  @keyframes slideUp {
+      from { max-height: 200px; }
+      to { max-height: 0; }
+  }
+  
+  /* Ripple Animation */
+  @keyframes ripple {
+      0% {
+          transform: scale(0, 0);
+          opacity: 0.5;
+      }
+      20% {
+          transform: scale(25, 25);
+          opacity: 0.3;
+      }
+      100% {
+          opacity: 0;
+          transform: scale(40, 40);
+      }
+  }
+  
+  /* Hover indicator */
+  .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: #00ffff;
+      opacity: 0;
+      transform: scaleY(0);
+      transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover::before {
+      opacity: 1;
+      transform: scaleY(1);
+  }
+  
+  /* Logout button special styling */
+  .nav-link.logout {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+  }
+  
+  .nav-link.logout:hover {
+      color: #ff4444 !important;
+  }
+  </style>
+  
+  <!-- Updated HTML Structure -->
+  <div class="sidebar">
+      <nav class="nav flex-column">
+          <div class="nav-header"></div>
+           <a href="{{ url_for('dashboard') }}" class="nav-header"> Dashboard </a>
+          
+          <div class="nav-header">Books</div>
+          <div class="submenu">
+              <a href="{{ url_for('books') }}" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  Manage Books
+              </a>
+              <a href="{{ url_for('category') }}" class="nav-link">
+                  <i class="nav-icon fas fa-list"></i>
+                  Category
+              </a>
+              <a href="{{ url_for('author') }}" class="nav-link">
+                  <i class="nav-icon fas fa-user-edit"></i>
+                  Author
+              </a>
+              <a href="{{ url_for('publisher') }}" class="nav-link">
+                  <i class="nav-icon fas fa-building"></i>
+                  Publisher
+              </a>
+            </div>
+
+            <a href="{{ url_for('list_issue_book') }}" class="nav-header">Issue Books</a>
+            <a href="{{ url_for('library') }}" class="nav-header">Library</a>
+            <a href="{{ url_for('users') }}" class="nav-header">Users</a>
+    
+            <a href="{{ url_for('logout') }}" class="nav-link logout">
+                <i class="nav-icon fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </div>
+  
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

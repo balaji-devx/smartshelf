@@ -1,0 +1,131 @@
+{% include 'header.html' %}
+<body>
+  <div class="container-fluid" id="main">
+    {% include 'top_menus.html' %}
+
+    <div class="row row-offcanvas row-offcanvas-left">
+      {% if user.role == 'admin' %}
+        <!-- Show sidebar for admin -->
+        {% include 'left_menus.html' %}
+      {% endif %}
+      
+      <!-- Conditionally set a class based on user role -->
+      <div class="col-md-9 col-lg-10 main {% if user.role != 'admin' %}full-width{% endif %}">
+        <div class="user-details-card text-center">
+          <h3>User Profile</h3>
+          <br>
+
+          <!-- Static Profile Icon -->
+          <div class="profile-icon-container">
+            <img src="/static/images/ham.jpg" alt="Profile Icon" class="profile-icon">
+          </div>
+
+          <h4>{{ user.first_name }}</h4>
+          <p><strong>Email: </strong>{{ user.email }}</p>
+          <p><strong>Role: </strong>{{ user.role }}</p>
+          <hr>
+          
+          {% if user.role == 'admin' %}
+            <h4>Welcome, Admin!</h4>
+            <p>You can manage users, books, and settings.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+          {% else %}
+            <h4>Welcome, User!</h4>
+            <p>You can browse and borrow books.</p>
+            <a href="{{ url_for('library') }}" class="btn btn-secondary">Browse Books</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    body {
+      background: linear-gradient(to right, #1d1f21, #6a0572);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      animation: fadeIn 2s ease-in;
+      margin: 0;
+      padding: 0;
+    }
+
+    .full-width {
+      width: 100%;
+    }
+
+    .user-details-card {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      max-width: 500px;
+      margin: 0 auto;  /* Center the card */
+    }
+
+    .user-details-card:hover {
+      transform: scale(1.02);
+    }
+
+    .user-details-card h3 {
+      color: #8a2be2;  /* Purple for title */
+      font-size: 28px;
+    }
+
+    .user-details-card p {
+      font-size: 1.1rem;
+    }
+
+    .user-details-card a {
+      margin-top: 10px;
+      display: inline-block;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .user-details-card .btn-primary {
+      background-color: #8a2be2;
+      color: white;
+      border: none;
+    }
+
+    .user-details-card .btn-secondary {
+      background-color: #6a0572;
+      color: white;
+      border: none;
+    }
+
+    .user-details-card a:hover {
+      background-color: #fff;
+      color: #8a2be2;
+      transform: translateY(-3px);
+    }
+
+    /* Profile Icon styles */
+    .profile-icon-container {
+      margin-bottom: 20px;
+    }
+
+    .profile-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    /* Fade-in effect */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</body>
+</html>

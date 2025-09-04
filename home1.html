@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SmartShelf</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1d1f21, #6a0572);
+            color: #fff;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* Menu with logo and sign-up button */
+        #menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: #2c2f33;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            animation: logoGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        #logo b {
+            color: #8a2be2;
+        }
+
+        .sign-up-btn {
+            background: #8a2be2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .sign-up-btn:hover {
+            background: #5a0080;
+        }
+
+        /* Slider adjustments */
+        #slider {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 30px;
+            background: rgba(0, 1, 2, 0.8);
+            border-radius: 10px;
+            margin: 20px;
+            animation: slideUp 1.5s ease-out;
+        }
+
+        #slider .left {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        #slider .left h1 {
+            font-size: 48px;
+            color: #8a2be2;
+            margin-bottom: 10px;
+        }
+
+        #slider .left p {
+            font-size: 22px;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        #slider .right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #slider .right img {
+            width: 17cm;
+            height: 10cm;
+            max-width: 450px;
+            border-radius: 15px; /* Rounded corners for the image */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+       /* From Uiverse.io by nikk7007 */ 
+button {
+ padding: 0.8em 1.8em;
+ border: 2px solid #17C3B2;
+ position: relative;
+ overflow: hidden;
+ background-color: transparent;
+ text-align: center;
+ text-transform: uppercase;
+ font-size: 16px;
+ transition: .3s;
+ z-index: 1;
+ font-family: inherit;
+ color: #fff;
+}
+
+button::before {
+ content: '';
+ width: 0;
+ height: 300%;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%) rotate(45deg);
+ background: #8a2be2;
+ transition: .5s ease;
+ display: block;
+ z-index: -1;
+}
+
+button:hover::before {
+ width: 105%;
+}
+
+button:hover {
+ color: #111;
+}
+
+        p {
+    margin-bottom: 20px; /* Adjust the value to set the desired spacing */
+    line-height: 2;
+}
+
+        /* Footer styling */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #2c2f33;
+            color: #8a2be2;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Keyframe animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes logoGlow {
+            0% { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 30px #8a2be2; }
+            100% { text-shadow: 0 0 20px #8a2be2, 0 0 30px #8a2be2, 0 0 40px #8a2be2; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Menu with logo and sign-up button -->
+    <div id="menu">
+        <div id="logo">SMART<b>SHELF</b></div>
+        <button class="sign-up-btn" onclick="window.location.href='/register'">Sign Up</button>
+    </div>
+
+    <!-- Slider section -->
+    <div id="slider">
+        <div class="left">
+            <h1>Welcome to SmartShelf</h1>
+            <p>Welcome to SmartShelf, your all-in-one digital library! Discover, organize, and access eBooks effortlessly, anytime, anywhere. With smart features and a sleek design, we make reading simpler and more enjoyable. Your personal library system is just a click away!</p>
+            <button class="button" onclick="window.location.href='/register'">Get Started</button>
+        </div>
+        <div class="right">
+            <img src="/static/images/ham.jpg" alt="SmartShelf Image">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">&copy; 2024 SMARTSHELF, All rights reserved.</div>
+
+</body>
+</html>

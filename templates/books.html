@@ -1,0 +1,201 @@
+{% include 'header.html' %}
+<body style="color: white;">  <!-- Set the body text to white -->
+  <div class="container-fluid" id="main">
+    {% include 'top_menus.html' %}
+    <div class="row row-offcanvas row-offcanvas-left">   
+      {% include 'left_menus.html' %}
+
+      <div class="col-md-9 col-lg-10 main">
+        <h1 class="title">Books</h1>
+
+        <div class="actions">
+          <a href="{{ url_for('edit_book') }}" class="btn btn-info">Add New Book</a>
+        </div>
+
+        {% if books %}
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Book Name</th>
+                  <th>Author</th>
+                  <th>Category</th>
+                  <th>Publisher</th>
+                  <th>Status</th>
+                  <th>ISBN</th>  
+                  <th>Added On</th>  
+                  <th>Updated On</th>  
+                  <th>Picture</th>  <!-- Added column for picture -->
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for book in books %}
+                  <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author_name }}</td>  
+                    <td>{{ book.category_name }}</td> 
+                    <td>{{ book.publisher_name }}</td> 
+                    <td>{{ book.status }}</td>
+                    <td>{{ book.isbn }}</td>  
+                    <td>{{ book.added_on }}</td>  
+                    <td>{{ book.updated_on }}</td>  
+                    <td>
+                      <!-- Display the book picture if available -->
+                      {% if book.picture %}
+                        <img src="{{ url_for('static', filename='books/' ~ book.picture) }}" alt="{{ book.name }}" width="50">
+                      {% else %}
+                        <span>No image available</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if book.pdf_path %}
+                        <a href="{{ url_for('static', filename='books/' ~ book.pdf_path) }}" class="btn-success table-action">Download PDF</a>
+                      {% else %}
+                        <span class="no-pdf">No PDF available</span>
+                      {% endif %}
+                      <a href="{{ url_for('edit_book', bookid=book.bookid) }}" class="btn-warning table-action">Edit</a>
+                      <a href="{{ url_for('delete_book', bookid=book.bookid) }}" class="btn-danger table-action">Delete</a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p>No books available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    body {
+      background-color: #343a40;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 2.5em;
+      margin: 30px 0;
+      color: #f8f9fc;
+    }
+
+    .actions {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: rgb(255, 255, 255);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+      word-wrap: break-word;
+    }
+
+    th {
+      background-color: #b33d85;
+      color: #4e73df;
+    }
+
+    tr:nth-child(even) {
+      background-color: #6a0572;
+    }
+
+    .table-action {
+      display: inline-block;
+      font-size: 14px;
+      padding: 6px 10px;
+      margin: 3px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn-success.table-action {
+      background-color: #28a745;
+      color: white;
+      border: 1px solid #28a745;
+    }
+
+    .btn-success.table-action:hover {
+      background-color: #218838;
+    }
+
+    .btn-warning.table-action {
+      background-color: #ffc107;
+      color: black;
+      border: 1px solid #ffc107;
+    }
+
+    .btn-warning.table-action:hover {
+      background-color: #e0a800;
+    }
+
+    .btn-danger.table-action {
+      background-color: #dc3545;
+      color: white;
+      border: 1px solid #dc3545;
+    }
+
+    .btn-danger.table-action:hover {
+      background-color: #c82333;
+    }
+
+    .no-pdf {
+      color: #6c757d;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      th, td {
+        padding: 8px;
+        font-size: 14px;
+      }
+
+      .btn {
+        font-size: 12px;
+        padding: 8px;
+      }
+    }
+  </style>
+</body>
+</html>
