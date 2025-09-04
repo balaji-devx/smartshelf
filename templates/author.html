@@ -1,5 +1,5 @@
 {% include 'header.html' %}
-<script src="{{ url_for('static',filename='js/author.js') }}"></script>
+<script src="../static/js/author.js"></script>
 <body>
   <div class="container-fluid" id="main">
 	{% include 'top_menus.html' %}  	
@@ -28,7 +28,7 @@
 					<td>{{author.authorid}}</td>
 					<td>{{author.name}}</td>
 					<td>{{author.status}}</td>							
-					<td><a href="{{url_for('editAuthor', authorid=author.authorid)}}" class="btn btn-primary">Edit</a></td>	
+					<td><a href="./edit_author.html" class="btn btn-primary">Edit</a></td>	
 					<td><a href="{{url_for('delete_author', authorid=author.authorid)}}" class="btn btn-danger">Delete</a></td>
 				  </tr> 
 			{% endfor %}	  

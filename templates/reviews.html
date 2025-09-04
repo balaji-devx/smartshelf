@@ -172,7 +172,7 @@
             {% if session.id %}
                 <div class="review-form">
                     <h2>Write a Review</h2>
-                    <form method="POST" action="{{ url_for('reviews') }}">
+                    <form method="POST" action="./reviews.html">
                         <div>
                             <label for="book_id">Select Book:</label>
                             <select name="book_id" id="book_id" required>
@@ -201,7 +201,7 @@
                     </form>
                 </div>
             {% else %}
-                <p>Please <a href="{{ url_for('login') }}">login</a> to write a review.</p>
+                <p>Please <a href="./login.html">login</a> to write a review.</p>
             {% endif %}
         
             <div class="reviews-list">

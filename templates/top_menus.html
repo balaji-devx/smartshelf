@@ -91,13 +91,13 @@
 
         <div class="nav-items">
             {% if session['role'] == 'admin' %}
-                <a class="username" href="view_user">{{ session.name }} (Admin)</a>
+                <a class="username" href="./view_user.html">{{ session.name }} (Admin)</a>
                 <a class="logout" href="{{ url_for('logout') }}">Logout</a>
             {% elif session['role'] == 'user' %}
-                <a class="username" href="view_user">{{ session.name }}</a>
+                <a class="username" href="./view_user.html">{{ session.name }}</a>
                 <a class="logout" href="{{ url_for('logout') }}">Logout</a>
             {% else %}
-                <a class="logout" href="login.html">Login</a>
+                <a class="logout" href="./login.html">Login</a>
             {% endif %}
         </div>
     </nav>

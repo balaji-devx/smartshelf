@@ -128,7 +128,7 @@
         </div>
 
         <div class="forum-form">
-            <form action="{{ url_for('query') }}" method="POST">
+            <form action="./query.html" method="POST">
                 <!-- CSRF Token for Flask-WTF -->
                 {% if csrf_token %}
                     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
