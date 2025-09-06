@@ -1,12 +1,12 @@
-{% include 'header.html' %}
+{% include 'templates/header.html' %}
 <body>
   <div class="container-fluid" id="main">
-    {% include 'top_menus.html' %}
+    {% include 'templates/top_menus.html' %}
 
     <div class="row row-offcanvas row-offcanvas-left">
       {% if user.role == 'admin' %}
         <!-- Show sidebar for admin -->
-        {% include 'left_menus.html' %}
+        {% include 'templates/left_menus.html' %}
       {% endif %}
       
       <!-- Conditionally set a class based on user role -->
