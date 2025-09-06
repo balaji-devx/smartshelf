@@ -14,9 +14,343 @@
 <script src="{{ url_for('static',filename='js/user.js') }}"></script>
 <body>
   <div class="container-fluid" id="main">
-	{% include 'top_menus.html' %}  	
-    <div class="row row-offcanvas row-offcanvas-left">   
-	  {% include 'left_menus.html' %}	
+  <style>
+        /* Body styles with gradient background and fade-in animation */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1d1f21, #6a0572);
+            color: #fff;
+            animation: fadeIn 1s ease-in;
+            min-height: 100vh;
+        }
+
+        /* Ensure no padding or margin for body or html */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        /* Full-width navbar with transparent background and flex layout */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px 30px; /* Added more padding */
+            background: transparent;
+            box-shadow: none;
+            margin-bottom: 30px;
+            border: none; /* Override Bootstrap border */
+        }
+
+        /* Logo styles */
+        .navbar .logo {
+            font-size: 28px;
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo-highlight {
+            color: #8a2be2; /* Purple color for 'Shelf' */
+        }
+
+        /* Container for username and logout */
+        .navbar .nav-items {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Username and Logout Button Style */
+        .navbar .username,
+        .navbar .logout {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+
+        .navbar .username:hover,
+        .navbar .logout:hover {
+            color: #fff;
+            background-color: #8a2be2;
+        }
+
+        /* Main container for content */
+        .main-content {
+            padding: 0 30px;
+        }
+        
+        /* Custom table styling to fit the theme */
+        .table-striped {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .table-striped > thead > tr > th,
+        .table-striped > tbody > tr > td {
+            color: #f0f0f0;
+            border-top: 1px solid #444;
+        }
+        .table-striped > thead > tr > th {
+            color: #fff;
+            font-weight: bold;
+        }
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Modal styling to match the dark theme */
+        .modal-content {
+            background-color: #2c2f33;
+            color: #fff;
+            border-radius: 8px;
+        }
+        .modal-header {
+            border-bottom: 1px solid #444;
+        }
+        .modal-header .close {
+            color: #fff;
+            opacity: 0.8;
+        }
+        .modal-footer {
+            border-top: 1px solid #444;
+        }
+        .form-control {
+            background-color: #3a3d40;
+            border: 1px solid #555;
+            color: #fff;
+        }
+        .form-control:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+        }
+
+        /* Fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <span class="logo-text">Smart</span><span class="logo-highlight">Shelf</span>
+        </a>
+        <div class="nav-items">
+            <!-- This is the static version of your logged-in admin user -->
+            <a class="username" href="#">Balaji (Admin)</a>
+            <a class="logout" href="#">Logout</a>
+        </div>
+    </nav>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <style>
+  /* Menu Container */
+  .sidebar {
+      background-color: #121212;
+      min-height: 100vh;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+  }
+  
+  /* Menu Items */
+  .nav-item {
+      position: relative;
+      margin: 0.5rem 0;
+  }
+  
+  /* Main Menu Links */
+  .nav-link {
+      padding: 0.8rem 1.5rem;
+      color: #fff !important;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+  }
+  
+  /* Hover Effect for Main Links */
+  .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(10px);
+  }
+  
+  /* Active Link Style */
+  .nav-link.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid #00ffff;
+  }
+  
+  /* Section Headers */
+  .nav-header {
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none; /* Removes underline */
+    display: block; /* Makes the link behave like a block for consistency */
+}
+
+  /* Submenu Container */
+  .submenu {
+      margin-left: 1rem;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+  }
+  
+  /* Submenu Items */
+  .submenu .nav-link {
+      padding-left: 2.5rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+  }
+  
+  /* Hover Effect for Submenu Items */
+  .submenu .nav-link:hover {
+      opacity: 1;
+  }
+  
+  /* Icon styles */
+  .nav-icon {
+      margin-right: 0.75rem;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+  }
+  
+  /* Hover effect for icons */
+  .nav-link:hover .nav-icon {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  
+  /* Ripple effect on click */
+  .nav-link::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+  }
+  
+  .nav-link:active::after {
+      animation: ripple 0.6s ease-out;
+  }
+  
+  /* Submenu Expand/Collapse Animation */
+  @keyframes slideDown {
+      from { max-height: 0; }
+      to { max-height: 200px; }
+  }
+  
+  @keyframes slideUp {
+      from { max-height: 200px; }
+      to { max-height: 0; }
+  }
+  
+  /* Ripple Animation */
+  @keyframes ripple {
+      0% {
+          transform: scale(0, 0);
+          opacity: 0.5;
+      }
+      20% {
+          transform: scale(25, 25);
+          opacity: 0.3;
+      }
+      100% {
+          opacity: 0;
+          transform: scale(40, 40);
+      }
+  }
+  
+  /* Hover indicator */
+  .nav-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: #00ffff;
+      opacity: 0;
+      transform: scaleY(0);
+      transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover::before {
+      opacity: 1;
+      transform: scaleY(1);
+  }
+  
+  /* Logout button special styling */
+  .nav-link.logout {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+  }
+  
+  .nav-link.logout:hover {
+      color: #ff4444 !important;
+  }
+  </style>
+  
+  <!-- Updated HTML Structure -->
+  <div class="sidebar">
+      <nav class="nav flex-column">
+          <div class="nav-header"></div>
+           <a href="./dashboard.html" class="nav-header"> Dashboard </a>
+          
+          <div class="nav-header">Books</div>
+          <div class="submenu">
+              <a href="./books.html" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  Manage Books
+              </a>
+              <a href="./category.html" class="nav-link">
+                  <i class="nav-icon fas fa-list"></i>
+                  Category
+              </a>
+              <a href="./author.html" class="nav-link">
+                  <i class="nav-icon fas fa-user-edit"></i>
+                  Author
+              </a>
+              <a href="./publisher.html" class="nav-link">
+                  <i class="nav-icon fas fa-building"></i>
+                  Publisher
+              </a>
+            </div>
+
+            <a href="./issue_book.html" class="nav-header">Issue Books</a>
+            <a href="./library.html" class="nav-header">Library</a>
+            <a href="./users.html" class="nav-header">Users</a>
+    
+            <a href="{{ url_for('logout') }}" class="nav-link logout">
+                <i class="nav-icon fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </div>
+  
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">	
       <div class="col-md-9 col-lg-10 main"> 
 		<h3>Edit User</h3>
 		<br>
