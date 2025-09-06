@@ -1,7 +1,7 @@
-<a href="./header.html"></a>
+<div id="header-placeholder"></div>
 <body>
   <div class="container-fluid" id="main">
-    <a href="./top_menus.html"></a>
+    {% include 'templates/top_menus.html' %}
 
     <div class="row row-offcanvas row-offcanvas-left">
       {% if user.role == 'admin' %}
@@ -127,5 +127,14 @@
       }
     }
   </style>
+
+  <script>
+    fetch('./header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+      })
+      .catch(err => console.error('Failed to load header:', err));
+  </script>
 </body>
 </html>
