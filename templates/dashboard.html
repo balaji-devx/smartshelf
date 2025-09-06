@@ -20,8 +20,8 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(to right, #1d1f21, #6a0572);
             color: #fff;
-            animation: fadeIn 2s ease-in;
-            height: 100vh;
+            animation: fadeIn 1s ease-in;
+            min-height: 100vh;
         }
 
         /* Ensure no padding or margin for body or html */
@@ -36,76 +36,117 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;  /* Full width */
-            padding: 10px;  /* Add some padding */
-            background: transparent;  /* Transparent background */
-            box-shadow: none;  /* No shadow */
+            width: 100%;
+            padding: 10px 30px; /* Added more padding */
+            background: transparent;
+            box-shadow: none;
             margin-bottom: 30px;
+            border: none; /* Override Bootstrap border */
         }
 
         /* Logo styles */
         .navbar .logo {
-            font-size: 28px;  /* Slightly larger for the logo */
+            font-size: 28px;
             color: #fff;
             font-weight: bold;
             letter-spacing: 2px;
-            text-decoration: none;  /* Remove underline */
+            text-decoration: none;
         }
 
         .logo-highlight {
-            color: #8a2be2;  /* Purple color for 'Shelf' */
+            color: #8a2be2; /* Purple color for 'Shelf' */
         }
 
         /* Container for username and logout */
         .navbar .nav-items {
-            display: flex;  /* Flexbox for horizontal layout */
-            align-items: center;  /* Align them vertically centered */
+            display: flex;
+            align-items: center;
         }
 
         /* Username and Logout Button Style */
         .navbar .username,
         .navbar .logout {
-            color: #fff;  /* Make text white */
+            color: #fff;
             font-weight: bold;
             font-size: 1.2rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease;
             border-radius: 20px;
             padding: 8px 15px;
-            margin-left: 20px;  /* Add space between the items */
-            text-decoration: none;  /* Remove underline */
+            margin-left: 20px;
+            text-decoration: none;
         }
 
         .navbar .username:hover,
         .navbar .logout:hover {
-            color: #fff;  /* Keep text white */
-            background-color: #8a2be2;  /* Purple background on hover */
+            color: #fff;
+            background-color: #8a2be2;
+        }
+
+        /* Main container for content */
+        .main-content {
+            padding: 0 30px;
+        }
+        
+        /* Custom table styling to fit the theme */
+        .table-striped {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .table-striped > thead > tr > th,
+        .table-striped > tbody > tr > td {
+            color: #f0f0f0;
+            border-top: 1px solid #444;
+        }
+        .table-striped > thead > tr > th {
+            color: #fff;
+            font-weight: bold;
+        }
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Modal styling to match the dark theme */
+        .modal-content {
+            background-color: #2c2f33;
+            color: #fff;
+            border-radius: 8px;
+        }
+        .modal-header {
+            border-bottom: 1px solid #444;
+        }
+        .modal-header .close {
+            color: #fff;
+            opacity: 0.8;
+        }
+        .modal-footer {
+            border-top: 1px solid #444;
+        }
+        .form-control {
+            background-color: #3a3d40;
+            border: 1px solid #555;
+            color: #fff;
+        }
+        .form-control:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
         }
 
         /* Fade-in effect */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
-     <nav class="navbar">
-        <a href="./home.html" class="logo">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">
             <span class="logo-text">Smart</span><span class="logo-highlight">Shelf</span>
         </a>
-
         <div class="nav-items">
-            {% if session['role'] == 'admin' %}
-                <a class="username" href="./view_user.html">{{ session.name }} (Admin)</a>
-                <a class="logout" href="{{ url_for('logout') }}">Logout</a>
-            {% elif session['role'] == 'user' %}
-                <a class="username" href="./view_user.html">{{ session.name }}</a>
-                <a class="logout" href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-                <a class="logout" href="./login.html">Login</a>
-            {% endif %}
+            <!-- This is the static version of your logged-in admin user -->
+            <a class="username" href="#">Balaji (Admin)</a>
+            <a class="logout" href="#">Logout</a>
         </div>
     </nav>
     <div class="row row-offcanvas row-offcanvas-left">
