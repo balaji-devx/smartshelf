@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-
+{% include 'header.html' %}
 <body>
-
-  <div id="header-placeholder"></div>
-  <div id="top-menus-placeholder"></div>
   <div class="container-fluid" id="main">
-    <div id="left-menus-placeholder"></div>
+    {% include 'top_menus.html' %}
 
     <div class="row row-offcanvas row-offcanvas-left">
-      <div id="main-content" class="col-md-9 col-lg-10 main">
+      {% if user.role == 'admin' %}
+        <!-- Show sidebar for admin -->
+        {% include 'left_menus.html' %}
+      {% endif %}
+      
+      <!-- Conditionally set a class based on user role -->
+      <div class="col-md-9 col-lg-10 main {% if user.role != 'admin' %}full-width{% endif %}">
         <div class="user-details-card text-center">
           <h3>User Profile</h3>
           <br>
 
+          <!-- Static Profile Icon -->
           <div class="profile-icon-container">
             <img src="../static/images/ham.jpg" alt="Profile Icon" class="profile-icon">
           </div>
 
-          <h4 id="user-first-name">Loading...</h4>
-          <p><strong>Email: </strong><span id="user-email">Loading...</span></p>
-          <p><strong>Role: </strong><span id="user-role">Loading...</span></p>
+          <h4>{{ user.first_name }}</h4>
+          <p><strong>Email: </strong>{{ user.email }}</p>
+          <p><strong>Role: </strong>{{ user.role }}</p>
           <hr>
-
-          <div id="user-actions"></div>
+          
+          {% if user.role == 'admin' %}
+            <h4>Welcome, Admin!</h4>
+            <p>You can manage users, books, and settings.</p>
+            <a href="./dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+          {% else %}
+            <h4>Welcome, User!</h4>
+            <p>You can browse and borrow books.</p>
+            <a href="./library.html" class="btn btn-secondary">Browse Books</a>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -50,7 +60,7 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
       max-width: 500px;
-      margin: 0 auto;
+      margin: 0 auto;  /* Center the card */
     }
 
     .user-details-card:hover {
@@ -58,7 +68,7 @@
     }
 
     .user-details-card h3 {
-      color: #8a2be2;
+      color: #8a2be2;  /* Purple for title */
       font-size: 28px;
     }
 
@@ -76,13 +86,13 @@
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    .btn-primary {
+    .user-details-card .btn-primary {
       background-color: #8a2be2;
       color: white;
       border: none;
     }
 
-    .btn-secondary {
+    .user-details-card .btn-secondary {
       background-color: #6a0572;
       color: white;
       border: none;
@@ -94,6 +104,7 @@
       transform: translateY(-3px);
     }
 
+    /* Profile Icon styles */
     .profile-icon-container {
       margin-bottom: 20px;
     }
@@ -106,61 +117,15 @@
       margin-bottom: 15px;
     }
 
+    /* Fade-in effect */
     @keyframes fadeIn {
       from {
         opacity: 0;
       }
-
       to {
         opacity: 1;
       }
     }
   </style>
-
-  <script>
-    // Load partial HTML files
-    fetch('./header.html')
-      .then(r => r.text())
-      .then(data => document.getElementById('header-placeholder').innerHTML = data)
-      .catch(err => console.error('Failed to load header:', err));
-
-    fetch('./top_menus.html')
-      .then(r => r.text())
-      .then(data => document.getElementById('top-menus-placeholder').innerHTML = data)
-      .catch(err => console.error('Failed to load top menus:', err));
-
-    fetch('./left_menus.html')
-      .then(r => r.text())
-      .then(data => document.getElementById('left-menus-placeholder').innerHTML = data)
-      .catch(err => console.error('Failed to load left menus:', err));
-
-    // Dummy user data (replace this with API or localStorage logic later)
-    const user = {
-      first_name: 'Balaji',
-      email: 'balaji@example.com',
-      role: 'admin'  // Or 'user'
-    };
-
-    document.getElementById('user-first-name').innerText = user.first_name;
-    document.getElementById('user-email').innerText = user.email;
-    document.getElementById('user-role').innerText = user.role;
-
-    const userActions = document.getElementById('user-actions');
-    if (user.role === 'admin') {
-      userActions.innerHTML = `
-        <h4>Welcome, Admin!</h4>
-        <p>You can manage users, books, and settings.</p>
-        <a href="./dashboard.html" class="btn btn-primary">Go to Dashboard</a>
-      `;
-    } else {
-      userActions.innerHTML = `
-        <h4>Welcome, User!</h4>
-        <p>You can browse and borrow books.</p>
-        <a href="./library.html" class="btn btn-secondary">Browse Books</a>
-      `;
-    }
-  </script>
-
 </body>
-
 </html>
