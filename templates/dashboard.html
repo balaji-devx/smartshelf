@@ -13,7 +13,101 @@
 </head>
 <body>
   <div class="container-fluid" id="main">
-  {% include 'top_menus.html' %}  	
+  <style>
+        /* Body styles with gradient background and fade-in animation */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #1d1f21, #6a0572);
+            color: #fff;
+            animation: fadeIn 2s ease-in;
+            height: 100vh;
+        }
+
+        /* Ensure no padding or margin for body or html */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        /* Full-width navbar with transparent background and flex layout */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;  /* Full width */
+            padding: 10px;  /* Add some padding */
+            background: transparent;  /* Transparent background */
+            box-shadow: none;  /* No shadow */
+            margin-bottom: 30px;
+        }
+
+        /* Logo styles */
+        .navbar .logo {
+            font-size: 28px;  /* Slightly larger for the logo */
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-decoration: none;  /* Remove underline */
+        }
+
+        .logo-highlight {
+            color: #8a2be2;  /* Purple color for 'Shelf' */
+        }
+
+        /* Container for username and logout */
+        .navbar .nav-items {
+            display: flex;  /* Flexbox for horizontal layout */
+            align-items: center;  /* Align them vertically centered */
+        }
+
+        /* Username and Logout Button Style */
+        .navbar .username,
+        .navbar .logout {
+            color: #fff;  /* Make text white */
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-left: 20px;  /* Add space between the items */
+            text-decoration: none;  /* Remove underline */
+        }
+
+        .navbar .username:hover,
+        .navbar .logout:hover {
+            color: #fff;  /* Keep text white */
+            background-color: #8a2be2;  /* Purple background on hover */
+        }
+
+        /* Fade-in effect */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+     <nav class="navbar">
+        <a href="./home.html" class="logo">
+            <span class="logo-text">Smart</span><span class="logo-highlight">Shelf</span>
+        </a>
+
+        <div class="nav-items">
+            {% if session['role'] == 'admin' %}
+                <a class="username" href="./view_user.html">{{ session.name }} (Admin)</a>
+                <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+            {% elif session['role'] == 'user' %}
+                <a class="username" href="./view_user.html">{{ session.name }}</a>
+                <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a class="logout" href="./login.html">Login</a>
+            {% endif %}
+        </div>
+    </nav>
     <div class="row row-offcanvas row-offcanvas-left">
       <style>
   /* Menu Container */
