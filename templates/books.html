@@ -9,7 +9,7 @@
         <h1 class="title">Books</h1>
 
         <div class="actions">
-          <a href="./edit_books.html" class="btn btn-info">Add New Book</a>
+          <a href="{{ url_for('edit_book') }}" class="btn btn-info">Add New Book</a>
         </div>
 
         {% if books %}
@@ -43,7 +43,7 @@
                     <td>
                       <!-- Display the book picture if available -->
                       {% if book.picture %}
-                        <img src="../static/books/book.jpg" alt="{{ book.name }}" width="50">
+                        <img src="{{ url_for('static', filename='books/' ~ book.picture) }}" alt="{{ book.name }}" width="50">
                       {% else %}
                         <span>No image available</span>
                       {% endif %}
@@ -54,7 +54,7 @@
                       {% else %}
                         <span class="no-pdf">No PDF available</span>
                       {% endif %}
-                      <a href="./edit_books.html" class="btn-warning table-action">Edit</a>
+                      <a href="{{ url_for('edit_book', bookid=book.bookid) }}" class="btn-warning table-action">Edit</a>
                       <a href="{{ url_for('delete_book', bookid=book.bookid) }}" class="btn-danger table-action">Delete</a>
                     </td>
                   </tr>

@@ -17,7 +17,7 @@
 
           <!-- Static Profile Icon -->
           <div class="profile-icon-container">
-            <img src="../static/images/ham.jpg" alt="Profile Icon" class="profile-icon">
+            <img src="/static/images/ham.jpg" alt="Profile Icon" class="profile-icon">
           </div>
 
           <h4>{{ user.first_name }}</h4>
@@ -28,11 +28,11 @@
           {% if user.role == 'admin' %}
             <h4>Welcome, Admin!</h4>
             <p>You can manage users, books, and settings.</p>
-            <a href="./dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
           {% else %}
             <h4>Welcome, User!</h4>
             <p>You can browse and borrow books.</p>
-            <a href="./library.html" class="btn btn-secondary">Browse Books</a>
+            <a href="{{ url_for('library') }}" class="btn btn-secondary">Browse Books</a>
           {% endif %}
         </div>
       </div>

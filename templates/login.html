@@ -7,7 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/style/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style/dashboard.css') }}">
 
     <style>
         /* Header - Menu */
@@ -168,7 +168,7 @@
 
 <body>
 <div id="menu">
-    <a class="nav-link" href="./home.html">
+    <a class="nav-link" href="/">
         <div id="logo">SMARTSHELF</div>
     </a>
     <div id="menu1">
@@ -177,7 +177,7 @@
                 <li><a href="#">{{ session.name }}</a> |</li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
             {% else %}
-                <li><a href="./register.html">Register</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
             {% endif %}
         </ul>
     </div>
@@ -185,7 +185,7 @@
 <div class="login-container">
     <div class="login-card">
         <h2>User Login</h2>
-        <form action="./login.html" method="post">
+        <form action="{{ url_for('login') }}" method="post">
             {% if msg is defined and msg %}
                 <div class="alert alert-warning">{{ msg }}</div>
             {% endif %}
@@ -198,10 +198,10 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
             </div>
             <div class="forgot-password">
-                <a href="./forgot_password.html">Forgot Password?</a>
+                <a href="{{ url_for('forgot_password') }}">Forgot Password?</a>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-            <p class="bottom">Don't have an account? <a href="./register.html">Register here</a></p>
+            <p class="bottom">Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
         </form>
     </div>
 </div>

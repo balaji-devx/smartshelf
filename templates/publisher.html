@@ -1,5 +1,5 @@
 {% include 'header.html' %}
-<script src="../static/js/publisher.js"></script>
+<script src="{{ url_for('static',filename='js/publisher.js') }}"></script>
 <body>
   <div class="container-fluid" id="main">
 	{% include 'top_menus.html' %}  	
@@ -27,7 +27,7 @@
 					<td>{{publisher.publisherid}}</td>
 					<td>{{publisher.name}}</td>
 					<td>{{publisher.status}}</td>							
-					<td><a href="./edit_publisher.html" class="btn btn-primary">Edit</a></td>	
+					<td><a href="{{url_for('editPublisher', publisherid=publisher.publisherid)}}" class="btn btn-primary">Edit</a></td>	
 					<td><a href="{{url_for('delete_publisher', publisherid=publisher.publisherid)}}" class="btn btn-danger">Delete</a></td>
 				  </tr> 
 			{% endfor %}	  

@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME | SMARTSHELF</title>
-    <link rel="stylesheet" href="../static/style/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
         <h1>SMARTSHELF</h1>
         <nav>
-            <a href="register.html" class="active">Register</a>
-            <a href="login.html">Login</a>
-            <a href="library.html">Library</a>
+            <a href="/register" class="active">Register</a>
+            <a href="/login">Login</a>
+            <a href="/library">Library</a>
         </nav>
     </header>
 
     <section class="home">
-        <img src="../static/assets/mount2.png" class="mount2">
-        <img src="../static/assets/mount1.png" class="mount1">
-        <img src="../static/assets/bush2.png" class="bush2">
+        <img src="{{ url_for('static', filename='assets/mount2.png') }}" class="mount2">
+        <img src="{{ url_for('static', filename='assets/mount1.png') }}" class="mount1">
+        <img src="{{ url_for('static', filename='assets/bush2.png') }}" class="bush2">
 
         <h1 class="title">SmartShelf</h1> 
 
-        <img src="../static/assets/bush1.png" class="bush1">
-        <img src="../static/assets/leaf2.png" class="leaf2">
-        <img src="../static/assets/leaf1.png" class="leaf1">
+        <img src="{{ url_for('static', filename='assets/bush1.png') }}" class="bush1">
+        <img src="{{ url_for('static', filename='assets/leaf2.png') }}" class="leaf2">
+        <img src="{{ url_for('static', filename='assets/leaf1.png') }}" class="leaf1">
     </section>
 
     <section class="about">
@@ -44,6 +44,6 @@
     </section>
     
 
-    <script src="../static/js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 {% include 'header.html' %}
-<script src="../static/js/category.js"></script>
+<script src="{{ url_for('static', filename='js/category.js') }}"></script>
 <body style="color: white;">  <!-- Set the body text to white -->
   <div class="container-fluid" id="main">
     {% include 'top_menus.html' %}  
@@ -28,7 +28,7 @@
                 <td>{{category.categoryid}}</td>
                 <td>{{category.name}}</td>
                 <td>{{category.status}}</td>                            
-                <td><a href="./edit_category.html" class="btn btn-primary">Edit</a></td>  
+                <td><a href="{{url_for('editCategory', categoryid=category.categoryid)}}" class="btn btn-primary">Edit</a></td>  
                 <td><a href="{{url_for('delete_category', categoryid=category.categoryid)}}" class="btn btn-danger">Delete</a></td>
               </tr> 
             {% endfor %}    

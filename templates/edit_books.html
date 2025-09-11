@@ -124,7 +124,7 @@
 
           <button type="submit" class="btn btn-info">{{ 'Save Changes' if books.bookid else 'Add Book' }}</button>
         </form>
-        <a href="./books.html" class="btn btn-secondary mt-3">Back to Books</a>
+        <a href="{{ url_for('books') }}" class="btn btn-secondary mt-3">Back to Books</a>
       </div>
     </div>
   </div>

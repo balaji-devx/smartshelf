@@ -1,5 +1,5 @@
 {% include 'header.html' %}
-<script src="../static/js/books.js"></script>
+<script src="{{ url_for('static', filename='js/books.js') }}"></script>
 <body style="color: white;">  <!-- Set the body text to white -->
   <div class="container-fluid" id="main">
     {% include 'top_menus.html' %}  
